@@ -1,0 +1,12 @@
+.navbar-default , .footer{
+        background-color: #3b5998;
+        font-size: 18px;
+        color: #ffffff;
+        
+    }
+    .footer{
+    text-align :center;
+    height:50px;
+    line-height :50px;
+    }
+    
