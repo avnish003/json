@@ -1,7 +1,10 @@
 <?php 
 include("connection.php");
-$id = $_GET['id'];
-$sql="SELECT * FROM emp_data WHERE id =".$id;
+$id = $_GET['emp_no'];
+echo $id;
+
+
+$sql="SELECT * FROM employees WHERE emp_no =$id";
 $data=mysqli_query($con,$sql);
 if ( false==$data ) {
   printf("error: %s\n", mysqli_error($con));
@@ -51,56 +54,67 @@ $rows=mysqli_fetch_array($data);
   <div class="col-md-6">
 
    <div class="form-group">
-    <label for="inputEname">Name</label>
-    <input type="text" class="form-control" required="required" id="inputEname" value="<?php echo $rows['name']; ?>" name="name" >
+    <label for="inputEname">First Name</label>
+    <input type="text" class="form-control" required="required" id="inputEname" value="<?php echo $rows['first_name']; ?>" name="first_name" >
+    <span class="help-block"></span>
+   </div>
+   
+    <div class="form-group">
+    <label for="inputEname">Last Name</label>
+    <input type="text" class="form-control" required="required" id="inputEname" value="<?php echo $rows['last_name']; ?>" name="last_name" >
     <span class="help-block"></span>
    </div>
    
    <div class="form-group">
     <label for="inputEname">Date of birth</label>
-    <input type="text" class="form-control" required="required" id="inputEname" value="<?php echo $rows['dob']; ?>" name="dob" >
+    <input type="date" class="form-control" required="required" id="inputEname" value="<?php echo $rows['birth_date']; ?>" name="birth_date" >
     <span class="help-block"></span>
    </div>
    
-   <div class="form-group">
-    <label for="inputEname">Department</label>
-    <input type="text" class="form-control" required="required" id="inputEname" value="<?php echo $rows['department']; ?>" name="department" >
+ 
+                     <div class="form-group">
+                        <label for="inputDep">Department</label>
+                        <select class="form-control" name="department">
+                      <?php
+                        $records=mysqli_query($con,"SELECT dept_name FROM departments");
+                        while($row=mysqli_fetch_array($records)){
+						?>	
+						
+						 <option value="<?php echo $row['dept_name'];?>"> <?php echo $row['dept_name'];?>
+                          <?php
+							}
+							?>
+                        <span class="help-block"></span>
+                        </select>
+                    </div>
+                    
+    <div class="form-group">
+    <label for="inputEname">Manager</label>
+    <input type="text" class="form-control" required="required" id="inputEname" value="<?php echo $rows['manager']; ?>" name="manager" >
     <span class="help-block"></span>
    </div>
-   
-   <div class="form-group">
-    <label for="inputEname">Dep. Manager</label>
-    <input type="text" class="form-control" required="required" id="inputEname" value="<?php echo $rows['depmang']; ?>" name="depmang" >
-    <span class="help-block"></span>
-   </div>
-   
+                    
    <div class="form-group">
     <label for="inputEname">Salary</label>
     <input type="text" class="form-control" required="required" id="inputEname" value="<?php echo $rows['salary']; ?>" name="salary" >
     <span class="help-block"></span>
    </div>
-   
+  
    <div class="form-group">
     <label for="hiredate">Hire Date</label>
-    <input type="text" class="form-control" required="required" id="hiredate" value="<?php echo $rows['hire_date']; ?>" name="hiredate" >
+    <input type="date" class="form-control" required="required" id="hiredate" value="<?php echo $rows['hire_date']; ?>" name="hire_date" >
     <span class="help-block"></span>
     
-    <div class="form-group">
-    <label for="inputEname">Join Date</label>
-    <input type="text" class="form-control" required="required" id="inputEname" value="<?php echo $rows['joindate']; ?>" name="joindate" >
-    <span class="help-block"></span>
-   </div>
    
    </div>
    <?php $gender = $rows['gender']; ?>
-   <input type="hidden" value="<?php echo $rows['id']; ?>" name='id'>
+   <input type="hidden" value="<?php echo $rows['emp_no']; ?>" name='emp_no'>
      <div class="form-group">
 						 <label>Gender</label>
 						  <select name="gender">
 							<option <?php if($gender =='Male'){ echo 'selected';}else{ echo '';} ?> value="Male">Male</option>
 							<option <?php if($gender =='Female'){ echo 'selected';}else{ echo '';} ?> value="Female">Female</option>
-							<option <?php if($gender =='Other'){ echo 'selected';}else{ echo '';} ?> value="Other" >Other</option>
-						  </select>
+							</select>
                         <span class="help-block"></span>
                 
                      </div>

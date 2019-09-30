@@ -1,3 +1,4 @@
+<?php include("connection.php"); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,9 +34,16 @@
             <div class="col-sm-5 col-sm-offset-3">
                 <h3>Create a employee </h3>
                 <form method="post" action="insertdata.php">
+					
+					<div class="form-group">
+                        <label for="inputName">First Name</label>
+                        <input type="text" class="form-control" required="required" autocomplete="off" id="inputName" name="first_name"
+                            placeholder="Employee Name">
+                        <span class="help-block"></span>
+                    </div>
                     <div class="form-group">
-                        <label for="inputName">Name</label>
-                        <input type="text" class="form-control" required="required" id="inputName" name="name"
+                        <label for="inputName">Last Name</label>
+                        <input type="text" class="form-control" required="required" autocomplete="off" id="inputName" name="last_name"
                             placeholder="Employee Name">
                         <span class="help-block"></span>
                     </div>
@@ -43,28 +51,53 @@
                     
                     <div class="form-group">
                         <label for="inputbirth">Date of Birth</label>
-                        <input type="text" class="form-control" required="required" id="inputbirth" name="dob"
+                        <input type="date" class="form-control" required="required" autocomplete="off" id="inputbirth" name="birth_date"
                             placeholder="Date of Birth">
                         <span class="help-block"></span>
                     </div>
-                    
-                    <div class="form-group">
+                
+                     <div class="form-group">
                         <label for="inputDep">Department</label>
-                        <input type="text" class="form-control" required="required" id="inputDep" name="department"
-                            placeholder="Deparment">
+                        <select class="form-control" name="dept_no">
+                     <?php
+                        $records=mysqli_query($con,"SELECT * FROM departments");
+                        while($row=mysqli_fetch_array($records)){
+						?>	
+						
+						 <option value="<?php echo $row['dept_no'];?>"> <?php echo $row['dept_name'];?></option>
+			
+                          <?php
+							}
+							?>
+							
                         <span class="help-block"></span>
+                        </select>
                     </div>
                     
+                    
+                   
+                    
+                  
                      <div class="form-group">
                         <label for="inputDepM">Dep. Manager</label>
-                        <input type="text" class="form-control" required="required" id="inputDepM" name="depmang"
-                            placeholder="Depart Manager">
+                        <select name="manager" class="form-control">
+							<option value="self">Self</option>
+                         <?php
+                        $records=mysqli_query($con,"SELECT first_name FROM employees");
+                        while($row=mysqli_fetch_array($records)){
+						?>	
+						
+						 <option value="<?php echo $row['first_name'];?>"> <?php echo $row['first_name'];?>
+                          <?php
+							}
+							?>
+							</select>
                         <span class="help-block"></span>
                     </div>
                     
                      <div class="form-group">
                         <label for="inputSalary">Salary</label>
-                        <input type="text" class="form-control" required="required" id="inputSalary" name="salary"
+                        <input type="text" class="form-control" autocomplete="off" id="inputSalary" name="salary"
                             placeholder="Salary">
                         <span class="help-block"></span>
                     </div>
@@ -72,24 +105,18 @@
                     
                      <div class="form-group">
                         <label for="inputDate">Hire Date</label>
-                        <input type="text" required="required" class="form-control" id="inputDate" name="hire_date"
+                        <input type="date" required="required" class="form-control" id="inputDate" name="hire_date"
                             placeholder="Hiring date">
                         <span class="help-block"></span>
                     </div>
                     
-                     <div class="form-group">
-                        <label for="joindate">Join Date</label>
-                        <input type="text" required="required" class="form-control" id="inputDate" name="joindate"
-                            placeholder="Hiring date">
-                        <span class="help-block"></span>
-                    </div>
-                    
+                   
                      <div class="form-group">
 						 <label>Gender</label>
-						  <select name="gender">
-							<option value="Male">Male</option>
-							<option value="Female">Female</option>
-							<option value="Other">Other</option>
+						  <select name="gender" class="form-control">
+							<option value="M">Male</option>
+							<option value="F">Female</option>
+			
 						  </select>
                         <span class="help-block"></span>
                 

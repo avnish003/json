@@ -7,14 +7,17 @@ if (isset($_GET["page"])) {
 else {  
     $pn=1;  
 };   
-$start_from = ($pn-1) * $limit; 
-
-$sql="SELECT * FROM emp_data LIMIT $start_from, $limit";
-
+/*$start_from = ($pn-1) * $limit; 
+$sql="SELECT * FROM employees LIMIT $start_from, $limit";
 $data=mysqli_query($con,$sql);
-if ( false==$data ) {
+ if ( false==$data ) {
   printf("error: %s\n", mysqli_error($con));
 }
+*/
+//$query="SELECT salary FROM salaries";
+//$data1=$con->query($query) or die($con->error);
+$sql="SELECT * FROM employees JOIN salaries ON employees.emp_no = salaries.emp_no JOIN departments ON employees.emp_no=departments.dept_no";
+$data=mysqli_query($con,$sql);
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,8 +34,7 @@ if ( false==$data ) {
 * {
   box-sizing: border-box;
 }
-
-#myInput {
+ #myInput {
   background-image: url('/css/searchicon.jpeg');
   background-position: 10px 10px;
   background-repeat: no-repeat;
@@ -91,14 +93,15 @@ if ( false==$data ) {
 	  
    <table class="table table-striped table-bordered table-hover">
     <tr>
-     <th>No.</th>
-     <th>Employee Name</th>
+    
+     <th>First Name</th>
+     <th>Last Name</th>
      <th>Date of birth </th>
      <th>Department </th>
      <th>Dep. manager </th>
      <th>Salary </th>
      <th>Hiring Date </th>
-     <th>join Date </th>
+    
      <th>Gender</th>
      <th>Action</th>
     </tr>  
@@ -110,21 +113,22 @@ if ( false==$data ) {
     {
     ?>
     <tr>
-     <td><?php echo $rows["id"];?></td>
-     <td><?php echo $rows["name"]; ?></td>
-     <td><?php echo $rows["dob"];?></td>
-     <td><?php echo $rows["department"];?></td>
-     <td><?php echo $rows["depmang"];?></td>
+    
+     <td><?php echo $rows["first_name"]; ?></td>
+     <td><?php echo $rows["last_name"]; ?></td>
+     <td><?php echo $rows["birth_date"];?></td>
+     <td><?php echo $rows["dept_name"];?></td>
+     <td><?php echo $rows["manager"];?></td>
       <td><?php echo $rows["salary"];?></td>
      <td><?php echo $rows["hire_date"]; ?></td>
-      <td><?php echo $rows["joindate"];?></td>
+      
      <td><?php echo $rows["gender"];?></td>
      
      
      
      <td>
-      <a class="btn btn-xs btn-primary" href="dataupdate.php?id=<?php echo $rows["id"];?>">Edit</a>
-      <a class="btn btn-xs btn-danger" href="delete.php?id=<?php echo $rows["id"]; ?>">Delete</a>
+      <a class="btn btn-xs btn-primary" href="dataupdate.php?emp_no=<?php echo $rows["emp_no"];?>">Edit</a>
+      <a class="btn btn-xs btn-danger" href="delete.php?emp_no=<?php echo $rows["emp_no"]; ?>">Delete</a>
      </td>
     </tr>
     <?php
@@ -165,3 +169,4 @@ if ( false==$data ) {
 
 </body>
 </html>
+

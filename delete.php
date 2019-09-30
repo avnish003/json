@@ -1,7 +1,7 @@
 <?php 
 include("connection.php");
-$id = $_GET['id'];
-$delete="DELETE FROM emp_data WHERE id=".$id;
+$id = $_GET['emp_no'];
+$delete="DELETE FROM employees ,salaries USING employees INNER JOIN salaries ON employees.emp_no=salaries.emp_no WHERE employees.emp_no=$id";
 $data=mysqli_query($con,$delete);
 if($data){
 	ob_start();
@@ -12,3 +12,5 @@ if($data){
 
 
 ?>
+
+
