@@ -16,7 +16,7 @@ $data=mysqli_query($con,$sql);
 */
 //$query="SELECT salary FROM salaries";
 //$data1=$con->query($query) or die($con->error);
-$sql="SELECT * FROM employees JOIN salaries ON employees.emp_no = salaries.emp_no JOIN departments ON employees.emp_no=departments.dept_no";
+$sql="SELECT * FROM employees JOIN salaries ON employees.emp_no = salaries.emp_no JOIN dept_manager ON employees.emp_no=dept_manager.emp_no JOIN departments ON dept_manager.dept_no=departments.dept_no";
 $data=mysqli_query($con,$sql);
 ?>
 <!DOCTYPE html>
