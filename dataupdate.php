@@ -1,10 +1,10 @@
 <?php 
 include("connection.php");
 $id = $_GET['emp_no'];
-echo $id;
+//echo $id;
 
 
-$sql="SELECT * FROM employees WHERE emp_no =$id";
+$sql="SELECT * FROM employees JOIN salaries ON employees.emp_no=salaries.emp_no JOIN dept_manager ON employees.emp_no=dept_manager.emp_no JOIN departments ON dept_manager.dept_no=departments.dept_no WHERE employees.emp_no ='$id'";
 $data=mysqli_query($con,$sql);
 if ( false==$data ) {
   printf("error: %s\n", mysqli_error($con));
@@ -34,7 +34,7 @@ $rows=mysqli_fetch_array($data);
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <h4>JSON CRUD</h4>
+      <h4>PHP CRUD</h4>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       
@@ -76,11 +76,11 @@ $rows=mysqli_fetch_array($data);
                         <label for="inputDep">Department</label>
                         <select class="form-control" name="department">
                       <?php
-                        $records=mysqli_query($con,"SELECT dept_name FROM departments");
+                        $records=mysqli_query($con,"SELECT * FROM departments");
                         while($row=mysqli_fetch_array($records)){
 						?>	
 						
-						 <option value="<?php echo $row['dept_name'];?>"> <?php echo $row['dept_name'];?>
+						 <option value="<?php echo $row['dept_no'];?>"> <?php echo $row['dept_name'];?>
                           <?php
 							}
 							?>
@@ -111,9 +111,9 @@ $rows=mysqli_fetch_array($data);
    <input type="hidden" value="<?php echo $rows['emp_no']; ?>" name='emp_no'>
      <div class="form-group">
 						 <label>Gender</label>
-						  <select name="gender">
-							<option <?php if($gender =='Male'){ echo 'selected';}else{ echo '';} ?> value="Male">Male</option>
-							<option <?php if($gender =='Female'){ echo 'selected';}else{ echo '';} ?> value="Female">Female</option>
+						  <select name="gender" class="form-control">
+							<option <?php if($gender =='Male'){ echo 'selected';}else{ echo '';} ?> value="M">Male</option>
+							<option <?php if($gender =='Female'){ echo 'selected';}else{ echo '';} ?> value="F">Female</option>
 							</select>
                         <span class="help-block"></span>
                 
