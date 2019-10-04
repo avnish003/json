@@ -10,7 +10,7 @@ $salary     = $_POST['salary'];
 $EmpGender  = $_POST['gender'];
 $Emphd      = $_POST['hire_date'];
 //print_r($_POST);
-$updateQuery="UPDATE employees JOIN salaries ON employees.emp_no=salaries.emp_no SET employees.first_name='$EmpfName', employees.last_name='$EmplName', employees.birth_date='$dob', employees.gender='$EmpGender', employees.hire_date='$Emphd', salaries.salary='$salary'  WHERE employees.emp_no='$id'";
+$updateQuery="UPDATE employees JOIN salaries ON employees.emp_no=salaries.emp_no JOIN dept_manager ON employees.emp_no=dept_manager.emp_no SET employees.first_name='$EmpfName', employees.last_name='$EmplName', employees.birth_date='$dob', employees.gender='$EmpGender', employees.hire_date='$Emphd', salaries.salary='$salary',dept_manager.dept_no='$dept' WHERE employees.emp_no='$id'";
 
 //echo $updateQuery;
 $data=mysqli_query($con,$updateQuery);
